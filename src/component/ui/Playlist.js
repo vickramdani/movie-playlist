@@ -1,5 +1,5 @@
 import React from "react";
-import PlaylistGrid from "../cart/PlaylistGrid";
+import PlaylistGrid from "../playlist/PlaylistGrid";
 
 const Playlist = ({ playlists, removeFromPlaylist, fetchAddItems }) => {
   return (
