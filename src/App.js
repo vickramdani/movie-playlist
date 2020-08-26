@@ -15,7 +15,7 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [info, setInfo] = useState([]);
   const [playlists, setPlaylist] = useState([]);
-  const [page, setPage] = useState(PAGE_MOVIE);
+  const [page, setPage] = useState(PAGE_PLAYLIST);
   const [query, setQuery] = useState("spider-man");
 
   useEffect(() => {
