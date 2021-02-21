@@ -3,13 +3,13 @@ import React, { useState } from "react";
 const Search = ({ getQuery }) => {
   const [text, setText] = useState("");
 
-  const getSearch = e => {
+  const getSearch = (e) => {
     e.preventDefault();
     getQuery(text);
     setText("");
   };
 
-  const onChanges = q => {
+  const onChanges = (q) => {
     setText(q);
   };
 
@@ -19,9 +19,9 @@ const Search = ({ getQuery }) => {
         <input
           type="text"
           className="form-control"
-          placeholder="Ex: Batman"
+          placeholder="Ex: Spider-Man"
           value={text}
-          onChange={e => onChanges(e.target.value)}
+          onChange={(e) => onChanges(e.target.value)}
         />
       </form>
     </section>

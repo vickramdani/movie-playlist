@@ -6,7 +6,7 @@ import Playlist from "./component/ui/Playlist";
 import Header from "./component/ui/Header";
 import "./App.css";
 
-const API_KEY = "http://www.omdbapi.com/?apikey=517dce9";
+const API_KEY = "3dfb164479b4a83fc7fac70340e5e91d";
 const PAGE_MOVIE = "movie";
 const PAGE_PLAYLIST = "playlist";
 const LOCAL_STORAGE_KEY = "react-movie-playlist";
@@ -15,7 +15,7 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [info, setInfo] = useState([]);
   const [playlists, setPlaylist] = useState([]);
-  const [page, setPage] = useState(PAGE_PLAYLIST);
+  const [page, setPage] = useState(PAGE_MOVIE);
   const [query, setQuery] = useState("spider-man");
 
   useEffect(() => {
@@ -34,38 +34,44 @@ const App = () => {
   }, [playlists]);
 
   const fetchItems = async () => {
-    const result = await axios(`${API_KEY}&s=${query}`);
-    const datas = result.data.Search;
+    const result = await axios(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+    );
+    const datas = result.data.results;
+    console.log(datas);
     setMovies(datas);
   };
 
-  const fetchAddItems = async id => {
-    const result = await axios(`${API_KEY}&i=${id}`);
+  const fetchAddItems = async (id) => {
+    const result = await axios(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+    );
+    // console.log(result);
     const datas = result.data;
     setInfo(datas);
   };
 
-  const addToPlaylist = info => {
+  const addToPlaylist = (info) => {
     setPlaylist([...playlists, { ...info }]);
   };
 
-  const removeFromPlaylist = movie => {
-    setPlaylist(playlists.filter(playlist => playlist !== movie));
+  const removeFromPlaylist = (movie) => {
+    setPlaylist(playlists.filter((playlist) => playlist !== movie));
   };
 
-  const navigateTo = nextPage => {
+  const navigateTo = (nextPage) => {
     setPage(nextPage);
   };
 
   const searchPage = () => (
     <>
       <h1 className="search-header">Search For Movie</h1>
-      <Search getQuery={search => setQuery(search)} />
+      <Search getQuery={(search) => setQuery(search)} />
       <MovieSearch
         movies={movies}
         info={info}
-        fetchAddItems={id => fetchAddItems(id)}
-        addToPlaylist={info => addToPlaylist(info)}
+        fetchAddItems={(id) => fetchAddItems(id)}
+        addToPlaylist={(info) => addToPlaylist(info)}
       />
     </>
   );
@@ -74,8 +80,8 @@ const App = () => {
     <>
       <Playlist
         playlists={playlists}
-        fetchAddItems={id => fetchAddItems(id)}
-        removeFromPlaylist={movie => removeFromPlaylist(movie)}
+        fetchAddItems={(id) => fetchAddItems(id)}
+        removeFromPlaylist={(movie) => removeFromPlaylist(movie)}
       />
     </>
   );
@@ -85,7 +91,7 @@ const App = () => {
       <Header
         PAGE_MOVIE={PAGE_MOVIE}
         PAGE_PLAYLIST={PAGE_PLAYLIST}
-        navigateTo={nextPage => navigateTo(nextPage)}
+        navigateTo={(nextPage) => navigateTo(nextPage)}
       />
       {page === PAGE_MOVIE && searchPage()}
       {page === PAGE_PLAYLIST && PlaylistPage()}

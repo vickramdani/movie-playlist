@@ -7,11 +7,11 @@ const Header = ({ navigateTo, PAGE_MOVIE, PAGE_PLAYLIST }) => {
         <h1>MovieGeeks</h1>
       </div>
       <div className="nav">
-        <a href="#" onClick={() => navigateTo(PAGE_PLAYLIST)}>
-          Playlist
-        </a>
         <a href="#" onClick={() => navigateTo(PAGE_MOVIE)}>
           Search
+        </a>
+        <a href="#" onClick={() => navigateTo(PAGE_PLAYLIST)}>
+          Playlist
         </a>
       </div>
     </div>

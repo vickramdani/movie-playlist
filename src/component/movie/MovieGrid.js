@@ -4,13 +4,13 @@ import MovieItems from "./MovieItems";
 const MovieGrid = ({ movies, info, fetchAddItems, addToPlaylist }) => {
   return (
     <section className="cards">
-      {movies.map(movie => (
+      {movies.map((movie) => (
         <MovieItems
-          key={movie.imdbID}
+          key={movie.id}
           movie={movie}
           info={info}
           fetchAddItems={fetchAddItems}
-          addToPlaylist={info => addToPlaylist(info)}
+          addToPlaylist={(info) => addToPlaylist(info)}
         />
       ))}
     </section>
